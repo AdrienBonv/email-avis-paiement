@@ -1,0 +1,27 @@
+# docker-compose.yml
+services:
+  ollama:
+    image: ollama/ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: always
+    ports:
+      - "11434:11434"
+
+  agent:
+    build: .
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - GRAPH_CLIENT_ID=${GRAPH_CLIENT_ID}
+      - GRAPH_CLIENT_SECRET=${GRAPH_CLIENT_SECRET}
+      - GRAPH_TENANT_ID=${GRAPH_TENANT_ID}
+      - BOITE_EMAIL=${BOITE_EMAIL}
+      - TON_SERVEUR=${TON_SERVEUR}
+    ports:
+      - "8000:8000"
+    restart: always
+
+volumes:
+  ollama_data:

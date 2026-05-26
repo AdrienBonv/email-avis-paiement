@@ -1,0 +1,7 @@
+venv/
+*.pdf
+*.PDF
+/input/
+/output/
+.env
+__pycache__/
